@@ -1,25 +1,31 @@
 import { useState } from "react";
 import { api } from "./settings";
 import "./App.css";
-import Loading from "./components/Loading";
-import Error from "./components/Error";
-import NoResults from "./components/NoResults";
 import Search from "./components/Search";
+import { validateSearch } from "./utils";
+import SearchResults from "./components/SearchResults";
+import { production } from "./settings";
+import dummyData from "./temporary/dummyData";
 
 const App = () => {
   const [error, setError] = useState({ error: false, message: "" });
-  const [data, setData] = useState([{}]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e, search, setSearchError) => {
+  const handleSubmit = (e, search, setValidationErrors) => {
     e.preventDefault();
-    if (search.start !== "") {
+
+    // Validate search query
+    const { valid, searchErrorArr } = validateSearch(search);
+
+    if (valid) {
       fetchResults(api, search, setLoading, setError, setData);
     } else {
-      setSearchError({ message: "Missing start date" });
+      setValidationErrors(searchErrorArr);
     }
   };
 
+  // Fetches search results from api
   const fetchResults = async (api, search, setLoading, setError, setData) => {
     const url = new URL(api.url);
     const params = {
@@ -39,9 +45,16 @@ const App = () => {
     // Fetch and save results from the api
     try {
       setLoading(true);
-      const result = await fetch(url);
-      const data = await result.json();
-      setData(Array.isArray(data) ? data : [data]);
+      let dataArr = [];
+
+      // Load dummy data if in test environment to avoid api call limit
+      if (production) {
+        const result = await fetch(url);
+        dataArr = await result.json();
+      } else {
+        dataArr = dummyData;
+      }
+      setData(Array.isArray(dataArr) ? dataArr : [dataArr]);
     } catch (error) {
       setError({ error: true, message: error.msg });
       throw error;
@@ -50,29 +63,30 @@ const App = () => {
     }
   };
 
-  if (loading) return <Loading />;
-  if (error.error) return <Error error={error.msg} />;
-
   return (
-    <div>
-      <header>
-        <h1>Spacestagram</h1>
+    <div className="full-screen flex-container">
+      <header className="header">
+        <div className="content-container">
+          <h1 className="website-title center-text">Spacestagram</h1>
+        </div>
       </header>
       <main>
-        <Search handleSubmit={handleSubmit} />
-        <section>
-          {data.length === 0 ? (
-            <NoResults />
-          ) : (
-            <ul>
-              {/* {data.map((d, index) => (
-                <li key={index}>{d}</li>
-              ))} */}
-            </ul>
-          )}
-        </section>
+        <div className="content-container">
+          <Search handleSubmit={handleSubmit} />
+          <section>
+            <SearchResults loading={loading} error={error} data={data} />
+          </section>
+        </div>
       </main>
-      <footer></footer>
+      <footer>
+        <div className="content-container center-text">
+          <p>Powered by NASA APIs.</p>
+          <p>
+            <span>Made with ♥ by </span>
+            <a href="https://www.kaunain.dev/">Kaunain Karmali</a>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
