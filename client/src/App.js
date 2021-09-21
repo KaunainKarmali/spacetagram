@@ -4,43 +4,23 @@ import "./App.css";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
 import NoResults from "./components/NoResults";
+import Search from "./components/Search";
 
 const App = () => {
-  // User's search term
-  const [search, setSearch] = useState({
-    start: "",
-    end: "",
-  });
-
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ error: false, message: "" });
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{}]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, search, setSearchError) => {
     e.preventDefault();
-
-    // Start !== blank
-    // Start < end
-    // Start > Jun 16, 1995
-    // End <= Today - 1
-    if (search.start !== "") fetchResults(api, search, setLoading, setError);
+    if (search.start !== "") {
+      fetchResults(api, search, setLoading, setError, setData);
+    } else {
+      setSearchError({ message: "Missing start date" });
+    }
   };
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setSearch({ ...search, [name]: value });
-  };
-
-  const handleReset = () => {
-    setSearch({
-      start: "",
-      end: "",
-    });
-  };
-
-  const fetchResults = async (api, search, setLoading, setError) => {
+  const fetchResults = async (api, search, setLoading, setError, setData) => {
     const url = new URL(api.url);
     const params = {
       api_key: api.key,
@@ -56,12 +36,12 @@ const App = () => {
 
     url.search = new URLSearchParams(params).toString();
 
+    // Fetch and save results from the api
     try {
       setLoading(true);
       const result = await fetch(url);
       const data = await result.json();
-      console.log(data);
-      setData(data.length === 0 ? [data] : data);
+      setData(Array.isArray(data) ? data : [data]);
     } catch (error) {
       setError({ error: true, message: error.msg });
       throw error;
@@ -72,7 +52,6 @@ const App = () => {
 
   if (loading) return <Loading />;
   if (error.error) return <Error error={error.msg} />;
-  if (data.length === 0) return <NoResults />;
 
   return (
     <div>
@@ -80,33 +59,17 @@ const App = () => {
         <h1>Spacestagram</h1>
       </header>
       <main>
+        <Search handleSubmit={handleSubmit} />
         <section>
-          <form onSubmit={handleSubmit}>
-            <label for="start">Start date</label>
-            <input
-              type="date"
-              id="start"
-              onChange={handleChange}
-              name="start"
-            />
-
-            <label for="end">End date</label>
-            <input type="date" id="end" onChange={handleChange} name="end" />
-
-            <button type="submit" onClick={handleSubmit}>
-              Search
-            </button>
-            <button type="reset" onClick={handleReset}>
-              Clear
-            </button>
-          </form>
-        </section>
-        <section>
-          <ul>
-            {data.map((d, index) => (
-              <li key={index}>{d}</li>
-            ))}
-          </ul>
+          {data.length === 0 ? (
+            <NoResults />
+          ) : (
+            <ul>
+              {/* {data.map((d, index) => (
+                <li key={index}>{d}</li>
+              ))} */}
+            </ul>
+          )}
         </section>
       </main>
       <footer></footer>
