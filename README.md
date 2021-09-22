@@ -11,6 +11,7 @@ Spacetagram lets you search from NASA's Astronomy Picture of the Day API. You ca
 The following key features exist:
 * Search bar with error handling
 * Loading state when fetching data from the API
+* Semantic HTML elements used
 * Reusable react components used to render multiple results
 * A 'like' button to remember your favorite pictures!
 
