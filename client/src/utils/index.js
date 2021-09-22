@@ -19,3 +19,22 @@ export const validateSearch = (search) => {
 
   return { valid, searchErrorArr };
 };
+
+// Function truncates long explanations
+export const formatExplanation = (explanation, maxCharLength = 100) => {
+  let result = null;
+
+  // Check if summary is null or not
+  if (explanation === null || explanation === undefined) {
+    result = "N/A";
+  } else {
+    // Trim the summary
+    if (explanation.length > maxCharLength) {
+      result = explanation.substring(0, maxCharLength) + "...";
+    } else {
+      result = explanation;
+    }
+  }
+
+  return result;
+};

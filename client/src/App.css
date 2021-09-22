@@ -32,8 +32,26 @@ main {
   flex-grow: 10;
 }
 
+section {
+  margin: 20px 0px;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
 .flex-container {
   display: flex;
+}
+
+.flex-column {
   flex-direction: column;
 }
 

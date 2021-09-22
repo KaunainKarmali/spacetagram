@@ -1,0 +1,9 @@
+.explanation {
+  flex-grow: 10;
+  height: 100%;
+  display: flex;
+}
+
+.explanation p {
+  font-size: 1rem;
+}

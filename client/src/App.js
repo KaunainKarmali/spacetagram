@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { api } from "./settings";
 import "./App.css";
-import Search from "./components/Search";
+import Search from "./components/Search/Search";
 import { validateSearch } from "./utils";
-import SearchResults from "./components/SearchResults";
+import SearchResults from "./components/SearchResults/SearchResults";
 import { production } from "./settings";
 import dummyData from "./temporary/dummyData";
 
@@ -64,7 +64,7 @@ const App = () => {
   };
 
   return (
-    <div className="full-screen flex-container">
+    <div className="full-screen flex-container flex-column">
       <header className="header">
         <div className="content-container">
           <h1 className="website-title center-text">Spacestagram</h1>

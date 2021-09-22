@@ -1,0 +1,32 @@
+.form-field {
+  display: inline-block;
+}
+
+.form-label {
+  display: block;
+}
+
+.form-field-container {
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.start-input {
+  margin-right: 20px;
+}
+
+.end-input,
+.clear-btn {
+  margin-left: 20px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.search-btn {
+  margin-right: 25px;
+}

@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-blue);
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+.content {
+  padding: 10px;
+}
+
+.sub-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-content p {
+  margin: 0;
+}
+
+.like-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.like-container:hover,
+.like-container:focus-within {
+  color: pink;
+}
+
+.like-container input {
+  opacity: 0;
+  position: absolute;
+}
+
+.like-icon {
+  font-size: 1.8rem;
+  transition: 0.3s all ease-in-out;
+}
+
+.liked {
+  color: red;
+}
+
+.not-liked {
+  color: auto;
+}

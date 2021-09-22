@@ -1,6 +1,7 @@
 import React from "react";
+import "./Search.css";
 import { useState, useEffect, useRef } from "react";
-import { validateSearch } from "../utils";
+import { validateSearch } from "../../utils";
 
 const Search = (props) => {
   const { handleSubmit } = props;
@@ -49,37 +50,50 @@ const Search = (props) => {
   return (
     <section>
       <form onSubmit={(e) => handleSubmit(e, search, setValidationErrors)}>
-        <label for="start">Start date</label>
-        <input
-          type="date"
-          id="start"
-          onChange={handleChange}
-          name="start"
-          min="1995-06-16"
-          max={maxDay.current}
-          value={search.start}
-        />
+        <div className="form-field-container">
+          <div className="form-field start-input">
+            <label for="start" className="form-label">
+              Start date
+            </label>
+            <input
+              type="date"
+              id="start"
+              onChange={handleChange}
+              name="start"
+              min="1995-06-16"
+              max={maxDay.current}
+              value={search.start}
+            />
+          </div>
 
-        <label for="end">End date</label>
-        <input
-          type="date"
-          id="end"
-          onChange={handleChange}
-          name="end"
-          min="1995-06-16"
-          max={maxDay.current}
-          value={search.end}
-        />
+          <div className="form-field end-input">
+            <label for="end" className="form-label">
+              End date
+            </label>
+            <input
+              type="date"
+              id="end"
+              onChange={handleChange}
+              name="end"
+              min="1995-06-16"
+              max={maxDay.current}
+              value={search.end}
+            />
+          </div>
+        </div>
 
-        <button
-          type="submit"
-          onClick={(e) => handleSubmit(e, search, setValidationErrors)}
-        >
-          Search
-        </button>
-        <button type="reset" onClick={handleReset}>
-          Clear
-        </button>
+        <div className="btn-container">
+          <button
+            className="btn search-btn"
+            type="submit"
+            onClick={(e) => handleSubmit(e, search, setValidationErrors)}
+          >
+            Search
+          </button>
+          <button className="btn clear-btn" type="reset" onClick={handleReset}>
+            Clear
+          </button>
+        </div>
       </form>
       <ul>
         {validationErrors &&
