@@ -15,6 +15,9 @@ const App = () => {
   const handleSubmit = (e, search, setValidationErrors) => {
     e.preventDefault();
 
+    // Reset error state
+    setError({ error: false, message: "" });
+
     // Validate search query
     const { valid, searchErrorArr } = validateSearch(search);
 
@@ -73,17 +76,19 @@ const App = () => {
       <main>
         <div className="content-container">
           <Search handleSubmit={handleSubmit} />
-          <section>
+          <section className="result-section">
             <SearchResults loading={loading} error={error} data={data} />
           </section>
         </div>
       </main>
       <footer>
         <div className="content-container center-text">
-          <p>Powered by NASA APIs.</p>
-          <p>
+          <p className="footer-text">Powered by NASA APIs.</p>
+          <p className="footer-text">
             <span>Made with ♥ by </span>
-            <a href="https://www.kaunain.dev/">Kaunain Karmali</a>
+            <a className="footer-link" href="https://www.kaunain.dev/">
+              Kaunain Karmali
+            </a>
           </p>
         </div>
       </footer>
@@ -92,24 +97,3 @@ const App = () => {
 };
 
 export default App;
-
-// APP COMPONENT
-// App component
-// Error state
-// Results state
-// Loading state
-
-// SEARCH
-// Search bar (form --> )
-// Clear result, search result, dynamic fetches on keystrokes
-// Update error / result / loading state
-// Date must be between Jun 16, 1995 - Sep 20, 2021
-
-// RESULTS / RESULT
-// Search results ul with li (key prop) and Card (with each result)
-// Managing null results for images
-// Title
-// Date of capture (earth_date)
-// Like / undo like button
-// More details modal popup with click away listener
-// Shareable link for image

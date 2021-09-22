@@ -50,7 +50,7 @@ const Search = (props) => {
   return (
     <section>
       <form onSubmit={(e) => handleSubmit(e, search, setValidationErrors)}>
-        <div className="form-field-container">
+        <div className="form-container">
           <div className="form-field start-input">
             <label for="start" className="form-label">
               Start date
@@ -63,12 +63,13 @@ const Search = (props) => {
               min="1995-06-16"
               max={maxDay.current}
               value={search.start}
+              className="input-date"
             />
           </div>
 
           <div className="form-field end-input">
             <label for="end" className="form-label">
-              End date
+              End date (optional)
             </label>
             <input
               type="date"
@@ -78,27 +79,47 @@ const Search = (props) => {
               min="1995-06-16"
               max={maxDay.current}
               value={search.end}
+              className="input-date"
             />
           </div>
-        </div>
+          {/* </div> */}
 
-        <div className="btn-container">
-          <button
-            className="btn search-btn"
-            type="submit"
-            onClick={(e) => handleSubmit(e, search, setValidationErrors)}
-          >
-            Search
-          </button>
-          <button className="btn clear-btn" type="reset" onClick={handleReset}>
-            Clear
-          </button>
+          {/* <div className="btn-container"> */}
+          <div className="search-btn-container">
+            <button
+              className="btn search-btn primary-btn"
+              type="submit"
+              onClick={(e) => handleSubmit(e, search, setValidationErrors)}
+            >
+              Search
+            </button>
+          </div>
+          <div className="clear-btn-container">
+            <button
+              className="btn clear-btn secondary-btn"
+              type="reset"
+              onClick={handleReset}
+            >
+              Clear
+            </button>
+          </div>
         </div>
       </form>
-      <ul>
-        {validationErrors &&
-          validationErrors.map(({ message }) => <li>{message}</li>)}
-      </ul>
+
+      <div className="validation-error-wrapper">
+        {validationErrors && validationErrors.length > 0 && (
+          <div class="validation-error-container">
+            <h3 className="validation-error-title">Input validation errors</h3>
+            <ul>
+              {validationErrors.map((error, index) => (
+                <li className="validation-error" key={index}>
+                  {error.message}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

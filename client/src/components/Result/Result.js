@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Result = (props) => {
-  const { result } = props;
+  const { result, index } = props;
   const { date, explanation, hdurl, url, title } = result;
   const [like, setLike] = useState(false);
 
@@ -28,16 +28,13 @@ const Result = (props) => {
             <input
               className="like-icon-input"
               type="checkbox"
-              id="like"
+              id={`like-${index}`}
               onChange={handleChange}
               checked={like}
             />
-            <label for="like" className="like-icon-label">
+            <label for={`like-${index}`} className="like-icon-label">
               <span className="sr-only">{like ? "liked" : "not liked"}</span>
-              <FontAwesomeIcon
-                className={`like-icon ${like ? "liked" : "not-liked"}`}
-                icon={faHeart}
-              />
+              <FontAwesomeIcon className="like-icon" icon={faHeart} />
             </label>
           </div>
         </div>

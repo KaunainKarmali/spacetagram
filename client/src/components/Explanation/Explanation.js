@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Explanation.css";
 import { formatExplanation } from "../../utils";
 
 const Explanation = (props) => {
@@ -9,9 +10,14 @@ const Explanation = (props) => {
     <div className="explanation">
       <p>{formatExplanation(explanation, expand ? explanation.length : 100)}</p>
       {explanation.length >= 100 && (
-        <button onClick={() => setExpand(!expand)}>
-          {expand ? "Collapse" : "Expand"}
-        </button>
+        <div>
+          <button
+            className="btn secondary-btn expand-btn"
+            onClick={() => setExpand(!expand)}
+          >
+            {expand ? "Collapse" : "Expand"}
+          </button>
+        </div>
       )}
     </div>
   );

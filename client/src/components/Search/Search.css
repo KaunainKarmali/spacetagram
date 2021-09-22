@@ -1,3 +1,12 @@
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: "start end" "search clear";
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
 .form-field {
   display: inline-block;
 }
@@ -12,13 +21,31 @@
   justify-content: center;
 }
 
-.start-input {
-  margin-right: 20px;
+.form-field input {
+  padding: 5px 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
 }
 
-.end-input,
-.clear-btn {
-  margin-left: 20px;
+.start-input {
+  grid-area: start;
+  justify-self: end;
+}
+
+.end-input {
+  grid-area: end;
+}
+
+.search-btn-container {
+  grid-area: search;
+  justify-self: end;
+}
+
+.clear-btn-container {
+  grid-area: clear;
 }
 
 .btn-container {
@@ -27,6 +54,44 @@
   margin-top: 10px;
 }
 
-.search-btn {
-  margin-right: 25px;
+.validation-error-wrapper {
+  text-align: center;
+}
+
+.validation-error-container {
+  margin: 0px auto;
+  display: inline-block;
+  padding: 10px 10px;
+  background: #1eae98;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.validation-error-title {
+  text-align: left;
+  font-size: 1.2rem;
+  margin: 0px;
+  margin-bottom: 5px;
+  color: var(--dark);
+}
+
+.validation-error {
+  text-align: left;
+}
+
+@media (max-width: 450px) {
+  .form-container {
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: "start start" "end end" "search clear";
+  }
+
+  .form-field {
+    width: 100%;
+    justify-self: start;
+  }
+
+  .input-date {
+    width: 100%;
+  }
 }
