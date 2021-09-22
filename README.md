@@ -22,7 +22,7 @@ Begin using the app by performing the following:
 
 2. To run the app, perform the followng
   * Run `cd client` to get into the client folder
-  * Run `npm i` to install dependencies
+  * Run `npm i` or `npm install` to install dependencies
   * Run `npm start` while in the client folder
 ## Technology used
 
