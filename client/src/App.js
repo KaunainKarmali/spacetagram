@@ -43,25 +43,26 @@ const App = () => {
 
     url.search = new URLSearchParams(params).toString();
 
+    setLoading(true);
+
     // Fetch and save results from the api
-    try {
-      setLoading(true);
-      let dataArr = [];
-
-      const result = await fetch(url);
-      if (result.ok) {
-        dataArr = await result.json();
-      } else {
-        throw new Error("an error occurred");
-      }
-
-      setData(Array.isArray(dataArr) ? dataArr : [dataArr]);
-    } catch (error) {
-      setError({ error: true, message: error.msg });
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+    await fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Error fetching data");
+        }
+      })
+      .then((result) => {
+        setData(Array.isArray(result) ? result : [result]);
+      })
+      .catch((error) => {
+        setError({ error: true, message: error });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
