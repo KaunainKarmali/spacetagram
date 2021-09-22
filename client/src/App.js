@@ -53,10 +53,15 @@ const App = () => {
       // Load dummy data if in test environment to avoid api call limit
       if (production) {
         const result = await fetch(url);
-        dataArr = await result.json();
+        if (result.ok) {
+          dataArr = await result.json();
+        } else {
+          throw new Error("an error occurred");
+        }
       } else {
         dataArr = dummyData;
       }
+
       setData(Array.isArray(dataArr) ? dataArr : [dataArr]);
     } catch (error) {
       setError({ error: true, message: error.msg });
