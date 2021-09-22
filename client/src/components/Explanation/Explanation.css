@@ -1,0 +1,12 @@
+.explanation {
+  flex-grow: 10;
+  height: 100%;
+}
+
+.explanation p {
+  font-size: 1rem;
+}
+
+.expand-btn {
+  background: transparent;
+}

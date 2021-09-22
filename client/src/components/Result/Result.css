@@ -1,0 +1,53 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-blue);
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+.content {
+  padding: 10px;
+}
+
+.sub-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub-content p {
+  margin: 0;
+}
+
+.like-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.like-icon-input {
+  opacity: 0;
+  position: absolute;
+}
+
+.like-container:hover {
+  color: rgb(255, 180, 192);
+}
+
+.like-icon-input:focus + .like-icon-label {
+  color: rgb(255, 180, 192);
+}
+
+.like-icon-input:checked + .like-icon-label .like-icon {
+  color: red;
+}
+
+.like-icon {
+  font-size: 1.8rem;
+  transition: 0.3s all ease-in-out;
+}
