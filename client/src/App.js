@@ -4,8 +4,6 @@ import "./App.css";
 import Search from "./components/Search/Search";
 import { validateSearch } from "./utils";
 import SearchResults from "./components/SearchResults/SearchResults";
-import { production } from "./settings";
-import dummyData from "./temporary/dummyData";
 
 const App = () => {
   const [error, setError] = useState({ error: false, message: "" });
@@ -50,16 +48,11 @@ const App = () => {
       setLoading(true);
       let dataArr = [];
 
-      // Load dummy data if in test environment to avoid api call limit
-      if (production) {
-        const result = await fetch(url);
-        if (result.ok) {
-          dataArr = await result.json();
-        } else {
-          throw new Error("an error occurred");
-        }
+      const result = await fetch(url);
+      if (result.ok) {
+        dataArr = await result.json();
       } else {
-        dataArr = dummyData;
+        throw new Error("an error occurred");
       }
 
       setData(Array.isArray(dataArr) ? dataArr : [dataArr]);
